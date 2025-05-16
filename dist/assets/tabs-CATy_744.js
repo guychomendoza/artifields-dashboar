@@ -1,0 +1,1 @@
+import{j as s,B as n}from"./index-DNJ-7_Rf.js";function l(a){return{id:`simple-tab-${a}`,"aria-controls":`simple-tabpanel-${a}`}}function d(a){const{children:i,value:e,index:t,...r}=a;return s.jsx("div",{role:"tabpanel",hidden:e!==t,id:`vista-${t}`,"aria-labelledby":`vista-${t}`,...r,children:e===t&&s.jsx(n,{sx:{mt:2},children:i})})}export{d as C,l as a};

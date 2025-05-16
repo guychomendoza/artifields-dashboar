@@ -1,0 +1,1 @@
+import{p as t,f as o}from"./Slider-CXET07Dr.js";import{e as a}from"./es-AKIt1KYa.js";const c=e=>{if(!e)return"Fecha no disponible";try{const r=t(e);return Number(r)?o(r,new Date,{addSuffix:!0,locale:a}):"Fecha inválida"}catch(r){return console.error("Error formatting timestamp:",r),"Error en fecha"}};export{c as f};

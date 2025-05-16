@@ -1,0 +1,92 @@
+import { useEffect } from 'react';
+import { Map } from '@vis.gl/react-google-maps';
+
+import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+import { useDrawingManager } from '../../../../hooks/use-drawing-manager';
+
+type AreaMapProps = {
+    onSendFunction: (
+        markerPosition: google.maps.LatLngLiteral | null,
+        polygon: google.maps.LatLngLiteral[]
+    ) => void;
+    isLoading: boolean;
+    marker: google.maps.LatLngLiteral | null;
+    polygon: google.maps.LatLngLiteral[] | null;
+    isMobile: boolean;
+};
+
+export const EditClusterAreaMap = ({
+    onSendFunction,
+    isLoading,
+    marker,
+    polygon,
+    isMobile,
+}: AreaMapProps) => {
+    const {
+        markerPosition,
+        polygonCoordinates,
+        setMarkerFromCoordinates,
+        setPolygonFromCoordinates,
+    } = useDrawingManager();
+
+    useEffect(() => {
+        if (!marker) return;
+        setMarkerFromCoordinates(marker);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [marker]);
+
+    useEffect(() => {
+        if (!polygon) return;
+        setPolygonFromCoordinates(polygon);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [polygon]);
+
+    return (
+        <>
+            <Box
+                sx={{
+                    borderRadius: 1,
+                    overflow: 'clip',
+                }}
+            >
+                <Map
+                    streetViewControl={false}
+                    defaultZoom={5}
+                    defaultCenter={{
+                        lat: 23.6345,
+                        lng: -102.5528,
+                    }}
+                    mapTypeId="satellite"
+                    gestureHandling="greedy"
+                    mapId="f1b7b1b3b1b3b1b3"
+                    zoomControl={false}
+                    controlSize={25}
+                    style={{ height: 500 }}
+                />
+            </Box>
+
+            <LoadingButton
+                variant="contained"
+                fullWidth
+                sx={{
+                    width: isMobile ? '100%' : 'fit-content',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: isMobile ? 2 : 0,
+                    position: isMobile ? 'relative' : 'absolute',
+                    top: isMobile ? 'auto' : 26,
+                    right: isMobile ? 'auto' : 32,
+                }}
+                onClick={() => {
+                    onSendFunction(markerPosition, polygonCoordinates);
+                }}
+                loading={isLoading}
+                disabled={isLoading}
+            >
+                Actualizar cluster
+            </LoadingButton>
+        </>
+    );
+};

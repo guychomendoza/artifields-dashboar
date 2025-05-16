@@ -1,0 +1,1 @@
+import{t as a}from"./index-DNJ-7_Rf.js";const n=async r=>{try{const t=await fetch(`${a}/api/projects/user/${r}`);return t.ok?await t.json():[]}catch{return[]}},o=async r=>{try{const t=await fetch(`${a}/api/projects/${r}`);return t.ok?await t.json():null}catch{return null}};export{o as a,n as f};
